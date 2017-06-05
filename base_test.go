@@ -14,25 +14,25 @@ func TestIntFromStringBinary(t *testing.T) {
 }
 
 func TestConvertAnyNumberToAnyBase(t *testing.T) {
-	r := Any(1023, 1024)
-	if r != rune(1023) {
-		t.Error(string(rune(1023)), " is expected but got", r)
+	r := Any(255, 256)
+	if r != byte(255) {
+		t.Error(string(byte(255)), " is expected but got", r)
 	}
 }
 
-func TestConvertAnyNumberToAnyBaseMaxRune(t *testing.T) {
-	r := Any(maxRune, maxBase)
-	if r != rune(maxRune) {
-		t.Error(string(rune(maxRune-1)), " is expected but got", r)
+func TestConvertAnyNumberToAnyBaseMaxByte(t *testing.T) {
+	r := Any(maxByte, maxBase)
+	if r != byte(maxByte) {
+		t.Error(string(byte(maxByte-1)), " is expected but got", r)
 	}
 	fmt.Println(r)
 }
 
-func TestFindMaxBitLenghtOfMaxRune(t *testing.T) {
+func TestFindMaxBitLenghtOfMaxByte(t *testing.T) {
 	s := []rune(patial)
 
-	for i := 0; i < maxRune; i++ {
-		if Int(string(s[:i])) >= maxRune {
+	for i := 0; i < maxByte; i++ {
+		if Int(string(s[:i])) >= maxByte {
 			fmt.Printf("lenght %d is number %d", i, Int(string(s[:i])))
 			break
 		}
@@ -40,7 +40,7 @@ func TestFindMaxBitLenghtOfMaxRune(t *testing.T) {
 }
 
 func TestConvertBinaryMaxbitLenght(t *testing.T) {
-	example := "1011000110000011110011111101010"
+	example := "1011000"
 
 	ch := Any(Int(example), maxBase)
 
@@ -53,7 +53,7 @@ func TestConvertBinaryMaxbitLenght(t *testing.T) {
 }
 
 func TestConvertBinaryMaxbitLenghtOverFlow(t *testing.T) {
-	example := "1111111111111111111111111111111"
+	example := "1111111"
 
 	ch := Any(Int(example), maxBase)
 
@@ -66,11 +66,11 @@ func TestConvertBinaryMaxbitLenghtOverFlow(t *testing.T) {
 }
 
 func TestConvertBinaryMaxbitLenghtNotFullyLenght(t *testing.T) {
-	example := "10110001100000111100"
+	example := "101100"
 
 	ch := Any(Int(example), maxBase)
 
-	back := Code(ch, 20)
+	back := Code(ch, 6)
 
 	if back != example {
 		t.Errorf("%v is origin but revert to %v", example, back)
@@ -78,51 +78,51 @@ func TestConvertBinaryMaxbitLenghtNotFullyLenght(t *testing.T) {
 	}
 }
 
-func TestConvertBinaryStringToEncodeRunes(t *testing.T) {
-	example := "10110001100000111100111111010101011000110000011110011111101010"
+func TestConvertBinaryStringToEncodeBytes(t *testing.T) {
+	example := "10110001100000"
 
-	runes, _ := RunesBase(example, maxBase, maxBit)
+	bytes, _ := BytesBase(example, maxBase, maxBit)
 
-	expected := []rune{
-		Any(Int("1011000110000011110011111101010"), maxRune),
-		Any(Int("1011000110000011110011111101010"), maxRune),
+	expected := []byte{
+		Any(Int("1011000"), maxByte),
+		Any(Int("1100000"), maxByte),
 	}
 
-	if !reflect.DeepEqual(expected, runes) {
-		t.Errorf("%v is expected but got %v\n", expected, runes)
+	if !reflect.DeepEqual(expected, bytes) {
+		t.Errorf("%v is expected but got %v\n", expected, bytes)
 	}
 }
 
-func TestConvertBinaryStringToEncodeRunesAndRevertBack(t *testing.T) {
-	example := "10110001100000111100111111010101011000110000011110011111101010"
+func TestConvertBinaryStringToEncodeBytesAndRevertBack(t *testing.T) {
+	example := "10110001100000"
 
-	runes, lenght := RunesBase(example, maxBase, maxBit)
+	bytes, lenght := BytesBase(example, maxBase, maxBit)
 
-	s := Codes(runes, lenght, maxBit)
+	s := Codes(bytes, lenght, maxBit)
 
 	if s != example {
 		t.Errorf("%v is origin but revert to %v", example, s)
 	}
 }
 
-func TestConvertBinaryStringToEncodeRunesAndRevertBackNotFullBlock(t *testing.T) {
-	example := "1011000110000011110011111101010101100011000001111001111110101011100"
+func TestConvertBinaryStringToEncodeBytesAndRevertBackNotFullBlock(t *testing.T) {
+	example := "1011000110000011"
 
-	runes, lenght := RunesBase(example, maxBase, maxBit)
+	bytes, lenght := BytesBase(example, maxBase, maxBit)
 
-	s := Codes(runes, lenght, maxBit)
+	s := Codes(bytes, lenght, maxBit)
 
 	if s != example {
 		t.Errorf("%v is origin but revert to %v", example, s)
 	}
 }
 
-func TestConvertBinaryStringToEncodeRunesAndRevertBackNotFullBlockOverflow(t *testing.T) {
-	example := "1111111111111111111111111111111"
+func TestConvertBinaryStringToEncodeBytesAndRevertBackNotFullBlockOverflow(t *testing.T) {
+	example := "1111111"
 
-	runes, lenght := RunesBase(example, maxBase, maxBit)
+	bytes, lenght := BytesBase(example, maxBase, maxBit)
 
-	s := Codes(runes, lenght, maxBit)
+	s := Codes(bytes, lenght, maxBit)
 
 	if s != example {
 		t.Errorf("%v is origin but revert to %v", example, s)
@@ -132,12 +132,12 @@ func TestConvertBinaryStringToEncodeRunesAndRevertBackNotFullBlockOverflow(t *te
 // var suite = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
 var patial = "111111111111111111111111111111111111111111111111111111111111100000000001111111111111111111111111100000000001111111100000000000000000000111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000011111111111111111111111111111111111111111111111000000000000000000001111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
 
-func TestConvertBinaryString500BitsToEncodeRunesAndRevertBackNotFullBlock(t *testing.T) {
+func TestConvertBinaryString500BitsToEncodeBytesAndRevertBackNotFullBlock(t *testing.T) {
 	example := patial
 
-	runes, lenght := RunesBase(example, maxBase, maxBit)
+	bytes, lenght := BytesBase(example, maxBase, maxBit)
 
-	s := Codes(runes, lenght, maxBit)
+	s := Codes(bytes, lenght, maxBit)
 
 	if s != example {
 		t.Errorf("%v is origin but revert to %v", example, s)

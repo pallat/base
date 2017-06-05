@@ -6,21 +6,21 @@ import (
 )
 
 const (
-	maxRune = 2147483647
-	maxBase = 2147483648
-	maxBit  = 31
+	maxByte = 255
+	maxBase = 256
+	maxBit  = 7
 )
 
 func Int(s string) (d int) {
-	b := []rune(s)
+	b := []byte(s)
 	for i := 0; i < len(b); i++ {
 		d += (int((b[i])-48) << uint(i))
 	}
 	return
 }
 
-func Any(number, base int) rune {
-	var r rune
+func Any(number, base int) byte {
+	var r byte
 	var n int
 	for {
 		number, n = number/base, number%base
@@ -29,11 +29,11 @@ func Any(number, base int) rune {
 			return r
 		}
 
-		r = rune(n) + r
+		r = byte(n) + r
 	}
 }
 
-func Code(ch rune, lenght int) string {
+func Code(ch byte, lenght int) string {
 	s := strings.Split(fmt.Sprintf("%b", ch), "")
 
 	b := []string{}
@@ -45,7 +45,7 @@ func Code(ch rune, lenght int) string {
 	return strings.Join(b, "") + strings.Repeat("0", lenght-len(b))
 }
 
-func RunesBase(s string, base, max int) ([]rune, int) {
+func BytesBase(s string, base, max int) ([]byte, int) {
 	l := len(s)
 	splitted := []string{}
 
@@ -61,7 +61,7 @@ func RunesBase(s string, base, max int) ([]rune, int) {
 		div++
 	}
 
-	r := []rune{}
+	r := []byte{}
 
 	for i := 0; i < div; i++ {
 		r = append(r, Any(Int(splitted[i]), base))
@@ -70,14 +70,14 @@ func RunesBase(s string, base, max int) ([]rune, int) {
 	return r, l
 }
 
-func Codes(runes []rune, lenght, max int) string {
+func Codes(bytes []byte, lenght, max int) string {
 	s := ""
 
 	mod := lenght % max
 
-	for k, r := range runes {
+	for k, r := range bytes {
 		if mod != 0 {
-			if k == len(runes)-1 {
+			if k == len(bytes)-1 {
 				s += Code(r, mod)
 				return s
 			}
