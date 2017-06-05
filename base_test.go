@@ -45,7 +45,20 @@ func TestConvertBinaryMaxbitLenght(t *testing.T) {
 
 	ch := Any(Int(example), maxRune)
 
-	back := Code(ch, maxRune)
+	back := Code(ch, maxBit)
+
+	if back != example {
+		t.Errorf("%v is origin but revert to %v", example, back)
+		t.Errorf("%v is origin but revert to %v", len(example), len(back))
+	}
+}
+
+func TestConvertBinaryMaxbitLenghtNotFullyLenght(t *testing.T) {
+	example := "10110001100000111100"
+
+	ch := Any(Int(example), maxRune)
+
+	back := Code(ch, 20)
 
 	if back != example {
 		t.Errorf("%v is origin but revert to %v", example, back)

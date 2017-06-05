@@ -32,7 +32,7 @@ func Any(number, base int) rune {
 	}
 }
 
-func Code(ch rune, base int) string {
+func Code(ch rune, lenght int) string {
 	s := strings.Split(fmt.Sprintf("%b", ch), "")
 
 	b := []string{}
@@ -41,5 +41,5 @@ func Code(ch rune, base int) string {
 		b = append(b, s[i])
 	}
 
-	return strings.Join(b, "") + strings.Repeat("0", maxBit-len(b))
+	return strings.Join(b, "") + strings.Repeat("0", lenght-len(b))
 }
