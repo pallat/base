@@ -143,3 +143,17 @@ func TestConvertBinaryString500BitsToEncodeBytesAndRevertBackNotFullBlock(t *tes
 		t.Errorf("%v is origin but revert to %v", example, s)
 	}
 }
+
+func TestConvertBinaryString600BitsToEncodeBytesToStringAndRevertBackNotFullBlock(t *testing.T) {
+	example := patial
+
+	bytes, lenght := BytesBase(example, maxBase, maxBit)
+
+	s := string(bytes)
+
+	origin := Codes([]byte(s), lenght, maxBit)
+
+	if origin != example {
+		t.Errorf("%v is origin but revert to %v", example, origin)
+	}
+}
