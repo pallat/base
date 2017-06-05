@@ -68,10 +68,10 @@ func RunesBase(s string, base, max int) []rune {
 	return r
 }
 
-func Codes(runes []rune, lenght int) string {
+func Codes(runes []rune, lenght, max int) string {
 	s := ""
 
-	mod := lenght % maxBit
+	mod := lenght % max
 
 	for k, r := range runes {
 		if mod != 0 {
@@ -80,7 +80,7 @@ func Codes(runes []rune, lenght int) string {
 				return s
 			}
 		}
-		s += Code(r, maxBit)
+		s += Code(r, max)
 	}
 
 	return s

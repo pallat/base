@@ -87,7 +87,7 @@ func TestConvertBinaryStringToEncodeRunesAndRevertBack(t *testing.T) {
 
 	runes := RunesBase(example, maxRune, maxBit)
 
-	s := Codes(runes, 62)
+	s := Codes(runes, 62, maxBit)
 
 	if s != example {
 		t.Errorf("%v is origin but revert to %v", example, s)
@@ -99,7 +99,7 @@ func TestConvertBinaryStringToEncodeRunesAndRevertBackNotFullBlock(t *testing.T)
 
 	runes := RunesBase(example, maxRune, maxBit)
 
-	s := Codes(runes, 67)
+	s := Codes(runes, 67, maxBit)
 
 	if s != example {
 		t.Errorf("%v is origin but revert to %v", example, s)
