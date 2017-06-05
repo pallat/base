@@ -7,6 +7,7 @@ import (
 
 const (
 	maxRune = 2147483647
+	maxBase = 2147483648
 	maxBit  = 31
 )
 
@@ -44,10 +45,11 @@ func Code(ch rune, lenght int) string {
 	return strings.Join(b, "") + strings.Repeat("0", lenght-len(b))
 }
 
-func RunesBase(s string, base, max int) []rune {
+func RunesBase(s string, base, max int) ([]rune, int) {
+	l := len(s)
 	splitted := []string{}
 
-	div, mod := len(s)/max, len(s)%max
+	div, mod := l/max, l%max
 
 	for i := 0; i < div; i++ {
 		splitted = append(splitted, s[:max])
@@ -65,7 +67,7 @@ func RunesBase(s string, base, max int) []rune {
 		r = append(r, Any(Int(splitted[i]), base))
 	}
 
-	return r
+	return r, l
 }
 
 func Codes(runes []rune, lenght, max int) string {
