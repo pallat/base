@@ -43,3 +43,27 @@ func Code(ch rune, lenght int) string {
 
 	return strings.Join(b, "") + strings.Repeat("0", lenght-len(b))
 }
+
+func RunesBase(s string, base, max int) []rune {
+	splitted := []string{}
+
+	div, mod := len(s)/max, len(s)%max
+
+	for i := 0; i < div; i++ {
+		splitted = append(splitted, s[:max])
+		s = s[max:]
+	}
+
+	if mod > 0 {
+		splitted = append(splitted, s)
+		div++
+	}
+
+	r := []rune{}
+
+	for i := 0; i < div; i++ {
+		r = append(r, Any(Int(splitted[i]), base))
+	}
+
+	return r
+}
