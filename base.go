@@ -11,6 +11,7 @@ const (
 	maxBit  = 7
 )
 
+// Int converts string of binary format to integer
 func Int(s string) (d int) {
 	b := []byte(s)
 	for i := 0; i < len(b); i++ {
@@ -19,6 +20,7 @@ func Int(s string) (d int) {
 	return
 }
 
+// Any convert decimal number to any base you need
 func Any(number, base int) byte {
 	var r byte
 	var n int
@@ -33,19 +35,18 @@ func Any(number, base int) byte {
 	}
 }
 
-func Code(ch byte, lenght int) string {
-	s := strings.Split(fmt.Sprintf("%b", ch), "")
-
-	b := []string{}
-
-	for i := len(s) - 1; i >= 0; i-- {
-		b = append(b, s[i])
-	}
-
-	return strings.Join(b, "") + strings.Repeat("0", lenght-len(b))
-}
-
+// BytesBase get string of binary format and convert to
+// number as base you want and please let us know maximun bits
+// that you base use in binary
 func BytesBase(s string, base, max int) ([]byte, int) {
+	if base > maxBase {
+		fmt.Println("base can not over", maxBase)
+		return []byte{}, 0
+	}
+	if max > maxBit {
+		fmt.Println("base can not over", maxBit)
+		return []byte{}, 0
+	}
 	l := len(s)
 	splitted := []string{}
 
@@ -70,6 +71,22 @@ func BytesBase(s string, base, max int) ([]byte, int) {
 	return r, l
 }
 
+// Code converts a byte to string in binary format
+// please let us know what is the actually lenght of it
+func Code(ch byte, lenght int) string {
+	s := strings.Split(fmt.Sprintf("%b", ch), "")
+
+	b := []string{}
+
+	for i := len(s) - 1; i >= 0; i-- {
+		b = append(b, s[i])
+	}
+
+	return strings.Join(b, "") + strings.Repeat("0", lenght-len(b))
+}
+
+// Codes convert bytes to string in binary format
+// please let us know what is the actually lenght of it
 func Codes(bytes []byte, lenght, max int) string {
 	s := ""
 
