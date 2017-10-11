@@ -28,18 +28,18 @@ func TestConvertAnyNumberToAnyBaseMaxByte(t *testing.T) {
 	fmt.Println(r)
 }
 
-func TestFindMaxBitLenghtOfMaxByte(t *testing.T) {
+func TestFindMaxBitLengthOfMaxByte(t *testing.T) {
 	s := []rune(patial)
 
 	for i := 0; i < maxByte; i++ {
 		if Int(string(s[:i])) >= maxByte {
-			fmt.Printf("lenght %d is number %d", i, Int(string(s[:i])))
+			fmt.Printf("length %d is number %d", i, Int(string(s[:i])))
 			break
 		}
 	}
 }
 
-func TestConvertBinaryMaxbitLenght(t *testing.T) {
+func TestConvertBinaryMaxbitLength(t *testing.T) {
 	example := "1011000"
 
 	ch := Any(Int(example), maxBase)
@@ -52,7 +52,7 @@ func TestConvertBinaryMaxbitLenght(t *testing.T) {
 	}
 }
 
-func TestConvertBinaryMaxbitLenghtOverFlow(t *testing.T) {
+func TestConvertBinaryMaxbitLengthOverFlow(t *testing.T) {
 	example := "1111111"
 
 	ch := Any(Int(example), maxBase)
@@ -65,7 +65,7 @@ func TestConvertBinaryMaxbitLenghtOverFlow(t *testing.T) {
 	}
 }
 
-func TestConvertBinaryMaxbitLenghtNotFullyLenght(t *testing.T) {
+func TestConvertBinaryMaxbitLengthNotFullyLength(t *testing.T) {
 	example := "101100"
 
 	ch := Any(Int(example), maxBase)
@@ -96,9 +96,9 @@ func TestConvertBinaryStringToEncodeBytes(t *testing.T) {
 func TestConvertBinaryStringToEncodeBytesAndRevertBack(t *testing.T) {
 	example := "10110001100000"
 
-	bytes, lenght := BytesBase(example, maxBase, maxBit)
+	bytes, length := BytesBase(example, maxBase, maxBit)
 
-	s := Codes(bytes, lenght, maxBit)
+	s := Codes(bytes, length, maxBit)
 
 	if s != example {
 		t.Errorf("%v is origin but revert to %v", example, s)
@@ -108,9 +108,9 @@ func TestConvertBinaryStringToEncodeBytesAndRevertBack(t *testing.T) {
 func TestConvertBinaryStringToEncodeBytesAndRevertBackNotFullBlock(t *testing.T) {
 	example := "1011000110000011"
 
-	bytes, lenght := BytesBase(example, maxBase, maxBit)
+	bytes, length := BytesBase(example, maxBase, maxBit)
 
-	s := Codes(bytes, lenght, maxBit)
+	s := Codes(bytes, length, maxBit)
 
 	if s != example {
 		t.Errorf("%v is origin but revert to %v", example, s)
@@ -120,9 +120,9 @@ func TestConvertBinaryStringToEncodeBytesAndRevertBackNotFullBlock(t *testing.T)
 func TestConvertBinaryStringToEncodeBytesAndRevertBackNotFullBlockOverflow(t *testing.T) {
 	example := "1111111"
 
-	bytes, lenght := BytesBase(example, maxBase, maxBit)
+	bytes, length := BytesBase(example, maxBase, maxBit)
 
-	s := Codes(bytes, lenght, maxBit)
+	s := Codes(bytes, length, maxBit)
 
 	if s != example {
 		t.Errorf("%v is origin but revert to %v", example, s)
@@ -135,9 +135,9 @@ var patial = "111111111111111111111111111111111111111111111111111111111111100000
 func TestConvertBinaryString500BitsToEncodeBytesAndRevertBackNotFullBlock(t *testing.T) {
 	example := patial
 
-	bytes, lenght := BytesBase(example, maxBase, maxBit)
+	bytes, length := BytesBase(example, maxBase, maxBit)
 
-	s := Codes(bytes, lenght, maxBit)
+	s := Codes(bytes, length, maxBit)
 
 	if s != example {
 		t.Errorf("%v is origin but revert to %v", example, s)
@@ -147,11 +147,11 @@ func TestConvertBinaryString500BitsToEncodeBytesAndRevertBackNotFullBlock(t *tes
 func TestConvertBinaryString600BitsToEncodeBytesToStringAndRevertBackNotFullBlock(t *testing.T) {
 	example := patial
 
-	bytes, lenght := BytesBase(example, maxBase, maxBit)
+	bytes, length := BytesBase(example, maxBase, maxBit)
 
 	s := string(bytes)
 
-	origin := Codes([]byte(s), lenght, maxBit)
+	origin := Codes([]byte(s), length, maxBit)
 
 	if origin != example {
 		t.Errorf("%v is origin but revert to %v", example, origin)
