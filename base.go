@@ -91,10 +91,11 @@ func Codes(bytes []byte, length, max int) string {
 	s := ""
 
 	mod := length % max
+	byteLen := len(bytes) - 1
 
 	for k, r := range bytes {
 		if mod != 0 {
-			if k == len(bytes)-1 {
+			if k == byteLen {
 				s += Code(r, mod)
 				return s
 			}
