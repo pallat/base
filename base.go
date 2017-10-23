@@ -72,8 +72,8 @@ func BytesBase(s string, base, max int) ([]byte, int) {
 }
 
 // Code converts a byte to string in binary format
-// please let us know what is the actually lenght of it
-func Code(ch byte, lenght int) string {
+// please let us know what is the actually length of it
+func Code(ch byte, length int) string {
 	s := strings.Split(fmt.Sprintf("%b", ch), "")
 
 	b := []string{}
@@ -82,22 +82,21 @@ func Code(ch byte, lenght int) string {
 		b = append(b, s[i])
 	}
 
-	return strings.Join(b, "") + strings.Repeat("0", lenght-len(b))
+	return strings.Join(b, "") + strings.Repeat("0", length-len(b))
 }
 
 // Codes convert bytes to string in binary format
-// please let us know what is the actually lenght of it
-func Codes(bytes []byte, lenght, max int) string {
+// please let us know what is the actually length of it
+func Codes(bytes []byte, length, max int) string {
 	s := ""
 
-	mod := lenght % max
+	mod := length % max
+	byteLen := len(bytes) - 1
 
 	for k, r := range bytes {
-		if mod != 0 {
-			if k == len(bytes)-1 {
-				s += Code(r, mod)
-				return s
-			}
+		if mod != 0 && k == byteLen {
+			s += Code(r, mod)
+			return s
 		}
 		s += Code(r, max)
 	}
