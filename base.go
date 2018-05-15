@@ -35,11 +35,11 @@ func Any(number, base int) byte {
 // that you base use in binary
 func BytesBase(s string, base, max int) ([]byte, int) {
 	if base > maxBase {
-		fmt.Println("base can not over", maxBase)
+		fmt.Println("base cannot over", maxBase)
 		return []byte{}, 0
 	}
 	if max > maxBit {
-		fmt.Println("base can not over", maxBit)
+		fmt.Println("base cannot over", maxBit)
 		return []byte{}, 0
 	}
 	l := len(s)
