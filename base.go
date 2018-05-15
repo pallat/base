@@ -24,15 +24,10 @@ func Int(s string) (d int) {
 func Any(number, base int) byte {
 	var r byte
 	var n int
-	for {
-		number, n = number/base, number%base
-
-		if n == 0 && number == 0 {
-			return r
-		}
-
+	for ; n != 0 || number != 0; number, n = number/base, number%base {
 		r = byte(n) + r
 	}
+	return r
 }
 
 // BytesBase get string of binary format and convert to
