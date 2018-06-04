@@ -24,15 +24,10 @@ func Int(s string) (d int) {
 func Any(number, base int) byte {
 	var r byte
 	var n int
-	for {
-		number, n = number/base, number%base
-
-		if n == 0 && number == 0 {
-			return r
-		}
-
+	for ; n != 0 || number != 0; number, n = number/base, number%base {
 		r = byte(n) + r
 	}
+	return r
 }
 
 // BytesBase get string of binary format and convert to
@@ -40,11 +35,11 @@ func Any(number, base int) byte {
 // that you base use in binary
 func BytesBase(s string, base, max int) ([]byte, int) {
 	if base > maxBase {
-		fmt.Println("base can not over", maxBase)
+		fmt.Println("base cannot over", maxBase)
 		return []byte{}, 0
 	}
 	if max > maxBit {
-		fmt.Println("base can not over", maxBit)
+		fmt.Println("base cannot over", maxBit)
 		return []byte{}, 0
 	}
 	l := len(s)
